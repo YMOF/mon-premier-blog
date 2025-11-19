@@ -39,6 +39,11 @@ form label {
 
 button {
     padding:6px 10px;
+    border-radius: 30% thin;
+    color: #CA3C66;
+}
+button a:hover{
+    background-color: white;
 }
 
 .msg {
