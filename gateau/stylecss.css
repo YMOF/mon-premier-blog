@@ -1,0 +1,17 @@
+
+body { font-family: Arial, sans-serif; max-width: 900px; margin: 20px auto; padding: 0 10px; color:#222; }
+header h1 { margin: 0; }
+nav a { margin-right: 8px; }
+table { width:100%; border-collapse: collapse; margin-top:12px;}
+table th, table td { border:1px solid #ddd; padding:8px; vertical-align:top;}
+table th { background:#f9f9f9; text-align:left;}
+form label { display:block; margin:8px 0; }
+button { padding:6px 10px; }
+.msg { background:#e7f7e7; border:1px solid #bfe6bf; padding:8px; }
+main{
+    background:#F9D9D7;
+}
+.card{
+    display;flex:
+
+}
