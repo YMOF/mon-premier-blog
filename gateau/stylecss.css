@@ -4,6 +4,7 @@ body {
     margin: 20px auto;
     padding: 0 10px;
     color:#222;
+    background-color:#FFEAF1;
 }
 
 header h1 {
@@ -64,7 +65,7 @@ button:hover {
 /* ----------- LAYOUT PRINCIPAL ----------- */
 
 main {
-    background:#F9D9D7;
+    /*background-image:url("yass.cake.png");*/
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
