@@ -1,0 +1,149 @@
+/* --- CSS pour Django --- */
+
+/* POLICES ET BODY */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 10px;
+    color: #222;
+    background-color: #FFEAF1;
+    /* Image de fond */
+    background-image: url("/static/images/yass.cake.pnj"); /* ou mettre inline {% static 'images/background.jpg' %} si nécessaire */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    margin-right: 8px;
+}
+
+/* TABLEAUX */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    vertical-align: top;
+}
+
+table th {
+    background: #f9f9f9;
+    text-align: left;
+}
+
+/* LABELS */
+form label {
+    display: block;
+    margin: 8px 0;
+    font-weight: bold;
+    color: #555;
+}
+
+/* BOUTONS */
+button, .btn, .btn_c {
+    padding: 6px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+}
+
+button {
+    color: #CA3C66;
+    border: 2px solid #CA3C66;
+    background: white;
+}
+
+button:hover {
+    background-color: #CA3C66;
+    color: white;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    background: #CA3C66;
+    color: white;
+    padding: 12px 0;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background: #E8AABE;
+}
+
+.btn_c {
+    display: block;
+    width: 100%;
+    background: #e57373;
+    color: white;
+    padding: 12px 0;
+    margin-top: 20px;
+}
+
+.btn_c:hover {
+    background: #d32f2f;
+}
+
+/* MESSAGES */
+.msg {
+    background: #e7f7e7;
+    border: 1px solid #bfe6bf;
+    padding: 8px;
+}
+
+/* LAYOUT PRINCIPAL */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* CARDS GATEAUX */
+.card {
+    background: pink;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    width: 220px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+}
+
+/* FORMULAIRES CREATION / MODIFICATION */
+input[type="text"], input[type="email"], input[type="tel"], textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #ffcdd2;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #fff;
+    transition: 0.2s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #e57373;
+    box-shadow: 0 0 5px rgba(255, 105, 135, 0.3);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
