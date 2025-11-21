@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'cakes/css/stylecss.css' %}">
    <style>
     body {
+
         background-color: #FFEAF1;
         background-image: url("{% static 'images/background.jpg' %}");
         background-size: cover;
@@ -19,7 +20,7 @@
     }
 
     header {
-        background: #FFEAF1; /* couleur de fond claire */
+        background-image:url("cakes/static/cakes/image/yass.cake.png") ; /* couleur de fond claire FFEAF1 */
         text-align: center;
         padding: 30px 10px;
     }
@@ -138,7 +139,7 @@
 
 <header>
     <h1>Bienvenue chez Yass.cake !</h1>
-    <p>Vous aimez la gourmandise et le réconfort ? Alors venez choisir votre douceur</p>
+    <p>Vous aimez la gourmandise et le réconfort ? Alors Partagez votre recette préférée</p>
     <a href="{% url 'creation_recette' %}" class="btn_c">Créer une recette</a>
 </header>
 
