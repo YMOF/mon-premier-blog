@@ -14,6 +14,7 @@ def creation_recette(request):
         instructions = request.POST.get('instructions')
 # une fois ajt va dans la bdd Models.py
         if not nom or not ingredients or not instructions:
+            erreur = "Veuillez remplir tous les champs."
             return render(request, 'creation_recette.html', {
                 'error': erreur,
                 'nom': nom,
