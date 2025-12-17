@@ -1,32 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>yass.cake - Créer une recette</title>
-    <link rel="stylesheet" href="{% static 'cakes/css/stylecss.css' %}">
-</head>
-<body>
-<main>
-    <div class="conteneur_formulaire">
-        <h2>Créer ta recette de gâteau</h2>
-        <form action="{% url 'creation_recette' %}" method="POST">
-            {% csrf_token %}
-            
-            <label for="nom">Nom du gâteau</label>
-            <input type="text" id="nom" name="nom" required placeholder="Gâteau citron"/>
+{% extends "index.html" %} <!-- heritage du template index.html-->
+{% load static %} <!--permet d’utiliser les fichiers statiques (images, CSS, JS) dans ton template via la balise-->
 
-            <label for="ingredients">Ingrédients</label>
-            <input type="text" id="ingredients" name="ingredients" required placeholder="Jus de citron, farine..."/>
+{% block content %}
+<div class="conteneur_formulaire">
+    <h2>Créer ta recette de gâteau</h2>
+    <form action="{% url 'creation_recette' %}" method="POST">
+        {% csrf_token %} <-- sécurise les attaques de type CSRF (Cross-Site Request Forgery).-->
+        <label for="nom">Nom du gâteau</label>
+        <input type="text" id="nom" name="nom"  placeholder="Gâteau citron"/>
 
-            <label for="instructions">Instructions</label>
-            <textarea id="instructions" name="instructions" required placeholder="Étapes de la recette..."></textarea>
+        <label for="ingredients">Ingrédients</label>
+        <input type="text" id="ingredients" name="ingredients"  placeholder="Jus de citron, farine..."/>
 
-            <button type="submit" class="btn_c">Ajouter à la carte</button>
-        </form>
-    </div>
-</main>
+        <label for="instructions">Instructions</label>
+        <textarea id="instructions" name="instructions" placeholder="Étapes de la recette..."></textarea>
 
-<a href="{% url 'accueil' %}" class="btn">Retour à la carte</a>
-</body>
-</html>
+        <button type="submit" class="btn_c">Ajouter à la carte</button>
+    </form>
+    <a href="{% url 'accueil' %}" class="btn">Retour à la carte</a>
+</div>
+{% endblock %}
