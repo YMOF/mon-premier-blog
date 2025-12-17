@@ -14,9 +14,12 @@ def creation_recette(request):
         instructions = request.POST.get('instructions')
 # une fois ajt va dans la bdd Models.py
         if not nom or not ingredients or not instructions:
-            erreur ="Veuillez remplir tous les champs."
-            return render(request, 'creation_recette.html', {'error': "Veuillez remplir tous les champs."})
-
+            return render(request, 'creation_recette.html', {
+                'error': erreur,
+                'nom': nom,
+                'ingredients': ingredients,
+                'instructions': instructions
+            })
         Recette.objects.create(nom=nom, ingredients=ingredients, instructions=instructions)
         return redirect('accueil')  # Redirige vers la page index après ajout
 
@@ -31,14 +34,14 @@ def modifier_recette(request, recette_id):
         instructions = request.POST.get('instructions')
 
         if not nom or not ingredients or not instructions:
-            return render(
-                request,
-                'modifier_recette.html',
-                {
-                    'recette': recette,
-                    'error': "Veuillez remplir tous les champs."
-                }
-            )
+            erreur = "Veuillez remplir tous les champs."
+            return render(request, 'modifier_recette.html', {
+                'recette': recette,
+                'error': erreur,
+                'nom': nom,
+                'ingredients': ingredients,
+                'instructions': instructions
+            })
 
         recette.nom = nom
         recette.ingredients = ingredients
