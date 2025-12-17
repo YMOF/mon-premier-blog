@@ -26,6 +26,7 @@ def creation_recette(request):
 
     return render(request, 'creation_recette.html')
 
+
 def modifier_recette(request, recette_id):
     recette = get_object_or_404(Recette, id=recette_id)
 
@@ -51,7 +52,13 @@ def modifier_recette(request, recette_id):
 
         return redirect('accueil')
 
-    return render(request, 'modifier_recette.html', {'recette': recette})
+    # Cas GET : préremplir le formulaire avec les données existantes
+    return render(request, 'modifier_recette.html', {
+        'recette': recette,
+        'nom': recette.nom,
+        'ingredients': recette.ingredients,
+        'instructions': recette.instructions
+    })
 
 
 
