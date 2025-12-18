@@ -31,7 +31,7 @@ def modifier_recette(request, recette_id):
     recette = get_object_or_404(Recette, id=recette_id)
 
     if request.method == "POST":
-        nom = request.POST.get('nom')
+        nom = request.POST['nom']
         ingredients = request.POST.get('ingredients')
         instructions = request.POST.get('instructions')
 
