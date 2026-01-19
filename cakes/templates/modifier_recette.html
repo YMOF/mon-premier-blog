@@ -7,7 +7,7 @@
     <form method="POST" action="{% url 'modifier_recette' recette.id %}">
         {% csrf_token %}
         <label for="nom">Nom du gâteau</label>
-        <input type="text" id="nom" name="nom" required placeholder="Gâteau citron" value="{{ recette.nom }}"/>
+        <input type="text" id="nom" name="nom" required placeholder="Gâteau " value="{{ recette.nom }}"/>
 
         <label for="ingredients">Ingrédients</label>
         <input type="text" id="ingredients" name="ingredients" required placeholder="Jus de citron, farine..." value="{{ recette.ingredients }}"/>
