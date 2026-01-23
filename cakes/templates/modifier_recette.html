@@ -25,7 +25,7 @@
 
         <button type="submit" class="btn">Modifier</button>
     </form>
-
+    <a href="{% url 'supprimer_recette' recette.id %}" class="btn_suppr"> Supprimer la recette</a>
     <a href="{% url 'accueil' %}" class="btn">Retour à la carte</a>
 </div>
 {% endblock %}

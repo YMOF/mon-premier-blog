@@ -9,7 +9,6 @@ body {
     color: #222;
     background-color: #FFEAF1;
     /* Image de fond */
-    background-image: url("/static/images/yass.cake.pnj"); /* ou mettre inline {% static 'images/background.jpg' %} si nécessaire */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

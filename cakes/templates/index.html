@@ -8,7 +8,6 @@
     <style>
         body {
             background-color: #FFEAF1;
-            background-image: url("{% static 'images/background.jpg' %}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -18,7 +17,6 @@
             color: #222;
         }
         header {
-            background-image:url("{% static 'cakes/image/yass.cake.png' %}");
             text-align: center;
             padding: 30px 10px;
         }
@@ -31,6 +29,20 @@
             font-size: 1.2em;
             color: #555;
         }
+        .btn_suppr {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e74c3c; /* rouge pour supprimer */
+    color: white;
+    text-decoration: none; /* enlève le soulignement du lien */
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn_suppr:hover {
+    background-color: #c0392b; /* effet hover */
+}
+
         .btn_c {
             display: inline-block;
             background-color: #e57373;
@@ -112,7 +124,36 @@
 </header>
 
 <main>
+   <main>
+    <!-- Formulaire de recherche et génération Ollama -->
+    <form method="GET" action="{% url 'accueil' %}" style="width:100%; max-width:600px; margin:0 auto 30px auto;">
+        <!-- Barre de recherche -->
+        <input
+            type="text"
+            name="q"
+            placeholder="Rechercher une recette ou taper votre idée..."
+            value="{{ query|default:'' }}"
+            style="width:100%; padding:15px 20px; border-radius:15px; border:2px solid #ffcdd2; font-size:16px;"
+        >
+        <!-- Boutons en dessous de la barre -->
+        <div style="display:flex; justify-content:space-between; margin-top:10px; gap:10px;">
+            <button type="submit" class="btn_c" style="flex:1;">Rechercher</button>
+            <button type="submit" name="gen" value="1" class="btn_c" style="flex:1; background-color:#CA3C66;">Générer recette</button>
+        </div>
+    </form>
+
     {% block content %}
+    <!-- Résultat Ollama -->
+    {% if resultat_ollama %}
+    <div class="card card-ollama" style="background-color:#fff3e0; border:1px solid #f5cda5;">
+        <h3>Recette générée par Ollama</h3>
+        {% for ligne in resultat_ollama.splitlines %}
+            <p>{{ ligne }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Liste des recettes existantes -->
     {% for recette in cakes_recette %}
     <div class="card">
         <h3>{{ recette.nom }}</h3>
@@ -125,6 +166,7 @@
     {% endfor %}
     {% endblock %}
 </main>
+
 
 <footer>
     <p>&copy; 2025 Yass.cake. Tous droits réservés.</p>
