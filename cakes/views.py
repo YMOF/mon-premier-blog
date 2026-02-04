@@ -111,7 +111,6 @@ def supprimer_recette(request, recette_id):
 
 #json
 def api_ingredients(request, recette_id):
-    print(f"--- DEBUG : L'ID reçu par le serveur est : {recette_id} ---")
     # Sécurité : On récupère l'objet ou erreur 404
     try:
         recette = Recette.objects.get(id=recette_id)
