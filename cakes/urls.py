@@ -6,5 +6,6 @@ urlpatterns = [
     path('recette/creer/', views.creation_recette, name='creation_recette'),
     path('recette/<int:recette_id>/modifier/', views.modifier_recette, name='modifier_recette'),
     path('recette/<int:recette_id>/supprimer/', views.supprimer_recette, name='supprimer_recette'),  # <- IMPORTANT
-
+# La nouvelle route pour AJAX
+    path('api/ingredients/<int:recette_id>/', views.api_ingredients, name='api_ingredients'),
 ]

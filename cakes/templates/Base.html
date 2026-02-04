@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Yass.cake{% endblock %}</title>
+    <style>
+        /* ... (Je garde tes styles identiques) ... */
+        body { background-color: #FFEAF1; font-family: 'Arial', sans-serif; margin: 0; padding: 0; color: #222; }
+        header { text-align: center; padding: 30px 10px; }
+        header h1 { color: #CA3C66; }
+        .btn_c { display: inline-block; background-color: #e57373; color: mintcream; text-decoration: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; }
+main {
+    display: flex; /* Active le mode Flexbox */
+    flex-wrap: wrap; /* Permet aux cartes de passer à la ligne */
+    justify-content: flex-start; /* Aligne les cartes à gauche */
+    gap: 20px; /* Espace entre les cartes */
+    padding: 30px;
+    max-width: 1300px; /* Largeur max pour contenir exactement 4 cartes */
+    margin: 0 auto; /* Centre la grille entière sur la page */
+}
+
+.card {
+    background: pink;
+    padding: 20px;
+    border-radius: 15px;
+    /* Calcul pour 4 colonnes : (100% / 4) - gap */
+    width: calc(25% - 20px);
+    min-width: 250px; /* Sécurité pour que les cartes ne soient pas trop fines */
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box; /* Important pour que le padding ne fausse pas le calcul */
+}        .card .btn { display: inline-block; margin-top: 10px; padding: 8px 15px; background-color: #CA3C66; color: white; text-decoration: none; border-radius: 20px; }
+        .ingredients-container ul { list-style-type: pink; padding-left: 20px; }
+        /* Version mobile : 1 seule colonne sur petit écran */
+@media (max-width: 768px) {
+    .card {
+        width: calc(100% - 20px);
+    }
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bienvenue chez Yass.cake !</h1>
+    <p>La gourmandise avant tout.</p>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer>
+    <p>&copy; 2026 Yass.cake. Tous droits réservés.</p>
+</footer>
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>

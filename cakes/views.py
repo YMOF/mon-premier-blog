@@ -5,6 +5,7 @@ from .models import Recette
 from .utils import appeler_ollama
 from django.db.models import Q
 import logging
+from django.http import JsonResponse
 logger = logging.getLogger(__name__)
 
 
@@ -39,7 +40,7 @@ def accueil(request):
 
 # Création d'une recette        formulaire uniquement= raise forms.ValidationError("Veuillez remplir tous les champs")
 def creation_recette(request):
-    if request.method == 'POST': # POST -> Renvoie ce quel 'utilisatuer envoire. Si le formulaire est vide -> GET
+    if request.method == 'POST': # POST -> Renvoie ce quel 'utilisatuer envoie. Si le formulaire est vide -> GET
         nom = request.POST.get('nom')
         ingredients = request.POST.get('ingredients')
         instructions = request.POST.get('instructions')
@@ -108,3 +109,15 @@ def supprimer_recette(request, recette_id):
         return redirect('accueil')
     return render(request, 'confirmer_suppression.html', {'recette': recette})
 
+#json
+def api_ingredients(request, recette_id):
+    print(f"--- DEBUG : L'ID reçu par le serveur est : {recette_id} ---")
+    # Sécurité : On récupère l'objet ou erreur 404
+    try:
+        recette = Recette.objects.get(id=recette_id)
+        # On transforme la chaîne d'ingrédients en liste (pour le côté "non trivial")
+        # Si tes ingrédients sont séparés par des virgules dans ta BDD :
+        liste_ing = recette.ingredients.split(',')
+        return JsonResponse({'ingredients': liste_ing})
+    except Recette.DoesNotExist:
+        return JsonResponse({'error': 'Introuvable'}, status=404)

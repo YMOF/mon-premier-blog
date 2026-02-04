@@ -13,36 +13,17 @@
         {% endif %}
 
         <label for="nom">Nom du gâteau</label>
-
-        <input type="text" id="nom" name="nom" required placeholder="Gâteau citron"
-            value="{{ nom|default:recette.nom }}" />
-
         <input type="text" id="nom" name="nom" required placeholder="Gâteau " value="{{ recette.nom }}" />
-
-
         <label for="ingredients">Ingrédients</label>
-        <input type="text" id="ingredients" name="ingredients" required placeholder="Jus de citron, farine..."
-            value="{{ ingredients|default:recette.ingredients }}" />
-
-
+        <input type="text" id="ingredients" name="ingredients" required placeholder="Jus de citron, farine..." value="{{ ingredients|default:recette.ingredients }}" />
         <label for="instructions">Instructions</label>
-        <textarea id="instructions" name="instructions" required
-            placeholder="Étapes de la recette...">{{ instructions|default:recette.instructions }}</textarea>
-
+        <textarea id="instructions" name="instructions" required placeholder="Étapes de la recette...">{{ instructions|default:recette.instructions }}</textarea>
         <button type="submit" class="btn">Modifier</button>
     </form>
-    <a href="{% url 'supprimer_recette' recette.id %}" class="btn_suppr"> Supprimer la recette</a>
-    <a href="{% url 'accueil' %}" class="btn">Retour à la carte</a>
 
-    <label for="instructions">Les instructions</label>
-    <textarea id="instructions" name="instructions" required
-        placeholder="Étapes de la recette...">{{ recette.instructions }}</textarea>
-
-    <button type="submit" class="btn">Modifier</button>
-    </form>
     <form method="POST" action="{% url 'supprimer_recette' recette.id %}" style="margin-top:10px;">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Supprimerr</button>
+        <button type="submit" class="btn btn-danger">Supprimer</button>
     </form>
     <a href="{% url 'accueil' %}" class="btn">Retour au menu</a>
 </div>
