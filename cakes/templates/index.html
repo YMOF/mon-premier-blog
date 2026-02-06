@@ -92,34 +92,45 @@ main {
 </main>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() { // On attend que la page soit prête
-        document.querySelectorAll('.btn-voir-ing').forEach(button => {
-            button.addEventListener('click', function() {
-                const recetteId = this.getAttribute('data-id');
-                const container = document.getElementById(`ing-container-${recetteId}`);
-                const monBouton = this;
+    document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.btn-voir-ing').forEach(button => {
+        button.addEventListener('click', function() {
+            const recetteId = this.getAttribute('data-id');
+            const container = document.getElementById(`ing-container-${recetteId}`);
+            const monBouton = this;
 
-                fetch(`/api/ingredients/${recetteId}/`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const titre = document.createElement("strong");
-                        titre.textContent = "Ingrédients :";
+            // 1. Création de l'objet de requête
+            const xhr = new XMLHttpRequest();
 
-                        const listeUl = document.createElement("ul");
-                        data.ingredients.forEach(nom => {
-                            const li = document.createElement("li");
-                            li.textContent = nom;
-                            listeUl.appendChild(li);
-                        });
+            // --- DÉMONSTRATION ASYNCHRONE (C'est ce qu'on utilise normalement) ---
+            // Le 'true' à la fin signifie ASYNCHRONE
+            xhr.open('GET', `/api/ingredients/${recetteId}/`, true);
 
-                        container.appendChild(titre);
-                        container.appendChild(listeUl);
-                        monBouton.remove();
-                    })
-                    .catch(error => console.error('Erreur:', error));
-            });
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+
+                    // Manipulation du DOM (Création de nœuds)
+                    const titre = document.createElement("strong");
+                    titre.textContent = "Ingrédients :";
+                    const listeUl = document.createElement("ul");
+
+                    data.ingredients.forEach(nom => {
+                        const li = document.createElement("li");
+                        li.textContent = nom;
+                        listeUl.appendChild(li);
+                    });
+
+                    container.appendChild(titre);
+                    container.appendChild(listeUl);
+                    monBouton.remove();
+                }
+            };
+
+            xhr.send();
         });
     });
+});
     </script>
 </body>
 </html>
