@@ -109,14 +109,30 @@ def supprimer_recette(request, recette_id):
         return redirect('accueil')
     return render(request, 'confirmer_suppression.html', {'recette': recette})
 
-#json
+#js
 def api_ingredients(request, recette_id):
     # Sécurité : On récupère l'objet ou erreur 404
     try:
+        #try ... expect cest la gestion des erreurs
+        # on recupere l'id de la recette (pour savoir quelle recette on cherche)
         recette = Recette.objects.get(id=recette_id)
         # On transforme la chaîne d'ingrédients en liste (pour le côté "non trivial")
         # Si tes ingrédients sont séparés par des virgules dans ta BDD :
-        liste_ing = recette.ingredients.split(',')
+        # ajouter mes recettes dans une liste
+        liste_ing = recette.ingredients.split(',') # split() permet de séparer la chaine de charactere
         return JsonResponse({'ingredients': liste_ing})
     except Recette.DoesNotExist:
         return JsonResponse({'error': 'Introuvable'}, status=404)
+
+
+
+
+
+
+
+
+
+
+
+
+

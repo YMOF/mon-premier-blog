@@ -8,7 +8,6 @@
     <title>{% block title %}Yass.cake{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'cakes/css/stylecss.css' %}">
     <style>
-        /* ... (Je garde tes styles identiques) ... */
         body { background-color: #FFEAF1; font-family: 'Arial', sans-serif; margin: 0; padding: 0; color: #222; }
         header { text-align: center; padding: 30px 10px; }
         header h1 { color: #CA3C66; }
@@ -74,7 +73,7 @@ main {
     <div class="card" id="recipe-{{ recette.id }}">
         <h3>{{ recette.nom }}</h3>
 
-        <div class="ingredients-container" id="ing-container-{{ recette.id }}"></div>
+        <div class="ingredients-container" id="ing-container-{{ recette.id }}"></div> <!-- l'ajout du JS avec les ingrédients-->
 
         <button class="btn btn-voir-ing" data-id="{{ recette.id }}" style="border:none; cursor:pointer;">
             Voir les ingrédients
@@ -94,8 +93,8 @@ main {
     document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.btn-voir-ing').forEach(button => {
         button.addEventListener('click', function() {
-            const recetteId = this.getAttribute('data-id');
-            const container = document.getElementById(`ing-container-${recetteId}`);
+            const recetteId = this.getAttribute('data-id');// permets de savoir quelle id de recette on a cliqué
+            const container = document.getElementById(`ing-container-${recetteId}`); // va
             const monBouton = this;
 
             // 1. Création de l'objet de requête
@@ -104,24 +103,24 @@ main {
             // --- DÉMONSTRATION ASYNCHRONE (C'est ce qu'on utilise normalement) ---
             // Le 'true' à la fin signifie ASYNCHRONE
             xhr.open('GET', `/api/ingredients/${recetteId}/`, true);
-
+//              callback
             xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const data = JSON.parse(xhr.responseText);
+                if (xhr.readyState === 4 && xhr.status === 200) { //me permets de savoir si le serveur a repondu
+                    const data = JSON.parse(xhr.responseText); // transforme le texte envoyé en js car cetait python
 
-                    // Manipulation du DOM (Création de nœuds)
+                    // Manipulation du DOM (Création de balises HTML)
                     const titre = document.createElement("strong");
                     titre.textContent = "Ingrédients :";
-                    const listeUl = document.createElement("ul");
+                    const listeUl = document.createElement("ul");// creation des puces
 
                     data.ingredients.forEach(nom => {
                         const li = document.createElement("li");
                         li.textContent = nom;
-                        listeUl.appendChild(li);
+                        listeUl.appendChild(li); // ajout d'un ingrédient ds la liste
                     });
 
                     container.appendChild(titre);
-                    container.appendChild(listeUl);
+                    container.appendChild(listeUl);// on insere la recette dans le code(voir la div ing-cont...)
                     monBouton.remove();
                 }
             };
