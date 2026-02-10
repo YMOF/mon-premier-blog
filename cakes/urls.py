@@ -7,5 +7,6 @@ urlpatterns = [
     path('recette/<int:recette_id>/modifier/', views.modifier_recette, name='modifier_recette'),
     path('recette/<int:recette_id>/supprimer/', views.supprimer_recette, name='supprimer_recette'),  # <- IMPORTANT
 # La nouvelle route pour AJAX
+    #ici on a le nom de la fonction puis ensuite on se dirige vers la view
     path('api/ingredients/<int:recette_id>/', views.api_ingredients, name='api_ingredients'),
 ]
