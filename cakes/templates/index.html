@@ -73,7 +73,7 @@ main {
     <div class="card" id="recipe-{{ recette.id }}">
         <h3>{{ recette.nom }}</h3>
 
-        <div class="ingredients-container" id="ing-container-{{ recette.id }}"></div> <!-- l'ajout du JS avec les ingrédients-->
+        <!-- l'ajout du JS avec les ingrédients--><div class="ingredients-container" id="ing-container-{{ recette.id }}"></div>
 
         <button class="btn btn-voir-ing" data-id="{{ recette.id }}" style="border:none; cursor:pointer;">
             Voir les ingrédients
@@ -90,30 +90,31 @@ main {
     {% endblock %}
 </main>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.btn-voir-ing').forEach(button => {
-        button.addEventListener('click', function() {
+    document.addEventListener('DOMContentLoaded', function() {// 1e attend que le code HTML soit chargé par le navig. avant de lancer
+    document.querySelectorAll('.btn-voir-ing').forEach (function(button) { //execute ce qu'il y a dans mon html->
+        // selectionne le bouton class
+        button.addEventListener('click', function() { // 2e callback du lancement du code au clic
             const recetteId = this.getAttribute('data-id');// permets de savoir quelle id de recette on a cliqué
-            const container = document.getElementById(`ing-container-${recetteId}`); // va
+            const container = document.getElementById(`ing-container-${recetteId}`); // cible la div vide ou il y aura les ingrédients
             const monBouton = this;
 
-            // 1. Création de l'objet de requête
+            // 1. Création de l'objet de requête AJAX messager entre nav et serveur
             const xhr = new XMLHttpRequest();
 
             // --- DÉMONSTRATION ASYNCHRONE (C'est ce qu'on utilise normalement) ---
             // Le 'true' à la fin signifie ASYNCHRONE
-            xhr.open('GET', `/api/ingredients/${recetteId}/`, true);
+            xhr.open('GET', `/api/ingredients/${recetteId}/`,false); // false = synchrone
 //              callback
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) { //me permets de savoir si le serveur a repondu
-                    const data = JSON.parse(xhr.responseText); // transforme le texte envoyé en js car cetait python
+            xhr.onreadystatechange = function() { //3e callback
+                if (xhr.readyState === 4 && xhr.status === 200) { //me permets de savoir si le serveur a repondu (terminé et reussi)
+                    const data = JSON.parse(xhr.responseText); // transforme deserialisation tableau js
 
                     // Manipulation du DOM (Création de balises HTML)
                     const titre = document.createElement("strong");
                     titre.textContent = "Ingrédients :";
                     const listeUl = document.createElement("ul");// creation des puces
 
-                    data.ingredients.forEach(nom => {
+                    data.ingredients.forEach(function(nom) { // 4e callback
                         const li = document.createElement("li");
                         li.textContent = nom;
                         listeUl.appendChild(li); // ajout d'un ingrédient ds la liste
@@ -124,7 +125,6 @@ main {
                     monBouton.remove();
                 }
             };
-
             xhr.send();
         });
     });

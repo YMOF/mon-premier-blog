@@ -14,20 +14,29 @@ def accueil(request):
     generer = request.GET.get('gen')   # pour Ollama
     resultat_ollama = None
 
-    #  Gestion recherche (optionnel)
+    # --- ZONE DE FAILLE SQL (CWE-89) ---
     if query:
-        mots = query.split()
-        q_object = Q()
-        for mot in mots:
-            q_object |= Q(nom__icontains=mot) | Q(ingredients__icontains=mot)
-        cakes_recette = Recette.objects.filter(q_object).distinct()
+        # DANGEREUX : On construit la phrase SQL à la main avec f-string
+        # Le pirate peut injecter son code ici via la variable 'query'
+        sql = f"SELECT * FROM cakes_recette WHERE nom LIKE '%{query}%'"
+        cakes_recette = Recette.objects.raw(sql)
     else:
         cakes_recette = Recette.objects.all()
+    # -----------------------------------
+    #  Gestion recherche (optionnel)
+    # if query:
+    #     mots = query.split()
+    #     q_object = Q()
+    #     for mot in mots:
+    #         q_object |= Q(nom__icontains=mot) | Q(ingredients__icontains=mot)
+    #     cakes_recette = Recette.objects.filter(q_object).distinct()
+    # else:
+    #     cakes_recette = Recette.objects.all()
 
     #  Appel Ollama si demandé
     if generer:
         if query:  # si l'utilisateur a écrit quelque chose dans la barre
-            prompt = f"Propose une recette simple de {query}"
+            prompt = f"Propose une recette simple basée sur : {query}"
         else:  # si la barre est vide, prompt par défaut
             prompt = "Propose une recette simple de gâteau au chocolat"
         resultat_ollama = appeler_ollama(prompt)
@@ -120,7 +129,7 @@ def api_ingredients(request, recette_id):
         # Si tes ingrédients sont séparés par des virgules dans ta BDD :
         # ajouter mes recettes dans une liste
         liste_ing = recette.ingredients.split(',') # split() permet de séparer la chaine de charactere
-        return JsonResponse({'ingredients': liste_ing})
+        return JsonResponse({'ingredients': liste_ing})#serialisation texte json
     except Recette.DoesNotExist:
         return JsonResponse({'error': 'Introuvable'}, status=404)
 
