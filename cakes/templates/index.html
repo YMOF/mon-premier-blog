@@ -68,7 +68,6 @@ main {
         <p>{{ resultat_ollama|linebreaks }}</p>
     </div>
     {% endif %}
-
     {% for recette in cakes_recette %}
     <div class="card" id="recipe-{{ recette.id }}">
         <h3>{{ recette.nom }}</h3>

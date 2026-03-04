@@ -22,7 +22,7 @@ def accueil(request):
         cakes_recette = Recette.objects.raw(sql)
     else:
         cakes_recette = Recette.objects.all()
-    # -----------------------------------
+    # ------------------------------------
     #  Gestion recherche (optionnel)
     # if query:
     #     mots = query.split()
