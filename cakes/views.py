@@ -133,6 +133,8 @@ def api_ingredients(request, recette_id):
     except Recette.DoesNotExist:
         return JsonResponse({'error': 'Introuvable'}, status=404)
 
+    #j'ai fais l'injection sql avec le mot de passe.
+
 
 
 
