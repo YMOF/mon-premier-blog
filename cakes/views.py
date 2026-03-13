@@ -17,7 +17,7 @@ def accueil(request):
     # --- ZONE DE FAILLE SQL (CWE-89) ---
     if query:
         # DANGEREUX : On construit la phrase SQL à la main avec f-string
-        # Le pirate peut injecter son code ici via la variable 'query'
+        # Le pirate peut injecter son code ici via la variable 'query' et demander de voir une info dans la bdd
         sql = f"SELECT * FROM cakes_recette WHERE nom LIKE '%{query}%'" # la fraise le nom de la recette on pourra modifier
         cakes_recette = Recette.objects.raw(sql)
     else:
