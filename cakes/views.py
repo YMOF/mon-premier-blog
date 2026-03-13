@@ -14,7 +14,7 @@ def accueil(request):
     generer = request.GET.get('gen')   # pour Ollama
     resultat_ollama = None
 
-    # --- ZONE DE FAILLE SQL (CWE-89) --- avec connexion
+    # --- ZONE DE FAILLE SQL (CWE-89) ---
     if query:
         # DANGEREUX : On construit la phrase SQL à la main avec f-string
         # Le pirate peut injecter son code ici via la variable 'query'
