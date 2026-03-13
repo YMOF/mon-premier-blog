@@ -18,11 +18,11 @@ def accueil(request):
     if query:
         # DANGEREUX : On construit la phrase SQL à la main avec f-string
         # Le pirate peut injecter son code ici via la variable 'query'
-        sql = f"SELECT * FROM cakes_recette WHERE nom LIKE '%{query}%'" # la fraise
+        sql = f"SELECT * FROM cakes_recette WHERE nom LIKE '%{query}%'" # la fraise le nom de la recette on pourra modifier
         cakes_recette = Recette.objects.raw(sql)
     else:
         cakes_recette = Recette.objects.all()
-    # ------------------------------------ ' UNION SELECT 1, ' ECHOUER', 'Contenu injecté', 111111111 --
+    # ------------------------------------ ' UNION SELECT 1, ' ECHOUER', 'Contenu injecté', 111111111 -------
     #  Gestion recherche (optionnel)
     # if query:
     #     mots = query.split()
@@ -133,7 +133,7 @@ def api_ingredients(request, recette_id):
     except Recette.DoesNotExist:
         return JsonResponse({'error': 'Introuvable'}, status=404)
 
-    #j'ai fais l'injection sql avec le mot de passe.
+    #j'ai fais l'injection sql avec le mot de passe
 
 
 
