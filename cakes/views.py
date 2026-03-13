@@ -14,22 +14,22 @@ def accueil(request):
     generer = request.GET.get('gen')   # pour Ollama
     resultat_ollama = None
 
-    # --- ZONE DE FAILLE SQL (CWE-89) ---
+    # --- ZONE DE FAILLE SQL (CWE-89) --- avec connexion
     if query:
         # DANGEREUX : On construit la phrase SQL à la main avec f-string
         # Le pirate peut injecter son code ici via la variable 'query'
-        sql = f"SELECT * FROM cakes_recette WHERE nom LIKE '%{query}%'"
+        sql = f"SELECT * FROM cakes_recette WHERE nom LIKE '%{query}%'" # la fraise
         cakes_recette = Recette.objects.raw(sql)
     else:
         cakes_recette = Recette.objects.all()
-    # ------------------------------------
+    # ------------------------------------ ' UNION SELECT 1, ' ECHOUER', 'Contenu injecté', 111111111 --
     #  Gestion recherche (optionnel)
     # if query:
     #     mots = query.split()
     #     q_object = Q()
     #     for mot in mots:
     #         q_object |= Q(nom__icontains=mot) | Q(ingredients__icontains=mot)
-    #     cakes_recette = Recette.objects.filter(q_object).distinct()
+    #     cakes_recette = Recette.objects.filter(q_object).distinct() # le code qui fixe la faille.
     # else:
     #     cakes_recette = Recette.objects.all()
 
